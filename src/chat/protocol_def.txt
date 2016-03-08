@@ -1,0 +1,53 @@
+
+PROTOCOL DEFINITION:
+
+		"x" 	 = used to identify what action is being requested/referenced in the response
+		"req" 	 = used to identify if it's a request message
+		"res"	 = used to identify if it's a response message
+	SENDS REQUEST 	 = whole stream to be sent from client to the server
+	EXPECTS RESPONSE = whole stream to be sent to client from server
+	ACTION		 = abstract of what action is taken
+
+Client-side
+Methods:
+login
+	SENDS REQUEST: 		"1" + "req" + username + password
+	EXPECTS RESPONSE: 	"1" + "res" + update_users_list
+	ACTION:             store user on server as online
+
+logoff
+	SENDS REQUEST: 		"0" + "req" + username
+	EXPECTS RESPONSE: 	"0" + "res" + update_users_list
+	ACTION:             remove user on server from online list
+
+verifyRegistration
+	SENDS REQUEST: 		"2" + "req" + username
+	EXPECTS RESPONSE: 	"2" + "res" + isSuccessful
+	ACTION:             check if username has been registered already:
+	                        - continue reg if NOT
+	                        - deny reg if YES
+
+sendMessage
+	SENDS REQUEST: 		"3" + "req" + username + address + message
+	EXPECTS RESPONSE: 	"3" + "res" + isSuccessful + update_chatbox
+	ACTION:		 	    update DB:chatLogs
+
+changePw
+	SENDS REQUEST: 		"4" + "req" + username + password1 + password2
+	EXPECTS RESPONSE: 	"4" + "res" + isSuccessful
+	ACTION:		 	    hash password2 & update DB:userbase
+
+viewLogs
+	SENDS REQUEST: 		"5" + "req" + username1 + username2
+	EXPECTS RESPONSE:	"5" + "res" + isSuccessful
+	ACTION:		 	    display chatlog frame & view msgs between user1 & user2
+
+changeStatus
+	SENDS REQUEST: 		"6" + "req" + username + status
+	EXPECTS RESPONSE:	"6" + "res" + update clients' user list with new status
+
+forgottenPw
+	SENDS REQUEST: 		"7" + "req" + username
+	EXPECTS RESPONSE: 	"7" + "res" + isSuccessful
+	ACTION:		 	    generate random string, store it in the frame, send it to username@bham.ac.uk,
+				        wait for it to be entered in the frame
