@@ -1,3 +1,2 @@
 # chat
-registered athensMessenger on gitHub
-created repository 'chat'
+java workshop 2015/16 group project 'athens'
